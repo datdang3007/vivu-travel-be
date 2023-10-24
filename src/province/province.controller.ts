@@ -40,6 +40,6 @@ export class ProvinceController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.provinceService.remove(+id);
+    return this.provinceService.softRemove(+id);
   }
 }

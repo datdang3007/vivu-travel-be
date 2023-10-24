@@ -46,7 +46,7 @@ export class ProvinceService {
     await this.provinceRepository.update({ id }, payload);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} province`;
+  async softRemove(id: number) {
+    await this.provinceRepository.softRemove({ id });
   }
 }

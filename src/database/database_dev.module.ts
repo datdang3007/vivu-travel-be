@@ -7,10 +7,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async () => {
+      useFactory: async (configService: ConfigService) => {
         return {
           type: 'postgres',
-          url: process.env.DATABASE_URL,
+          host: configService.get('DB_HOST'),
+          port: configService.get('DB_PORT'),
+          username: configService.get('DB_USERNAME'),
+          password: configService.get('DB_PASSWORD'),
+          database: configService.get('DB_DATABASE'),
           entities: ['dist/**/*.entity{.ts,.js}'],
           migrations: ['src/migrations/*.ts', 'dist/migrations/*{.ts,.js}'],
           cli: {
@@ -22,4 +26,4 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
   ],
 })
-export class DatabaseModule {}
+export class DatabaseModuleDev {}
