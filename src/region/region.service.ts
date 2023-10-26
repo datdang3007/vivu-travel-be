@@ -33,7 +33,7 @@ export class RegionService {
     await this.regionRepository.update({ id }, payload);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} region`;
+  async softRemove(id: number) {
+    await this.regionRepository.softRemove({ id });
   }
 }

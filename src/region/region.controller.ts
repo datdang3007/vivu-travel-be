@@ -37,6 +37,6 @@ export class RegionController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.regionService.remove(+id);
+    return this.regionService.softRemove(+id);
   }
 }
