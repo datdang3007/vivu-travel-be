@@ -40,6 +40,6 @@ export class TerritoryController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.territoryService.remove(+id);
+    return this.territoryService.softRemove(+id);
   }
 }

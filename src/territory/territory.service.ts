@@ -34,7 +34,7 @@ export class TerritoryService {
     await this.territoryRepository.update({ id }, payload);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} territory`;
+  async softRemove(id: number) {
+    await this.territoryRepository.softRemove({ id });
   }
 }
