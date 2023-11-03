@@ -10,10 +10,9 @@ import { ProvinceRepository } from './province.repository';
 @Injectable()
 export class ProvinceService {
   constructor(
-    private territoryService: TerritoryService,
-
     @InjectRepository(Province)
     private provinceRepository: ProvinceRepository,
+    private territoryService: TerritoryService,
   ) {}
 
   async create(createProvinceDto: CreateProvinceDto): Promise<Province> {
