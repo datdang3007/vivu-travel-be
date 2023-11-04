@@ -14,8 +14,6 @@ export class ContentService {
   ) {}
 
   create(createContentDto: CreateContentDto): Promise<Content> {
-    console.log(createContentDto);
-
     return this.contentRepository.save(
       this.contentRepository.create(createContentDto),
     );

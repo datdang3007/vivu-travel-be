@@ -22,8 +22,6 @@ export class PlaceImageService {
   async createList(list: CreatePlaceImageDto[]): Promise<boolean> {
     let isSuccess = true;
 
-    console.log(list);
-
     await Promise.all(
       list.map(async (val) => {
         try {

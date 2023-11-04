@@ -8,6 +8,7 @@ import { ProvinceModule } from './province/province.module';
 import { PlaceModule } from './place/place.module';
 import { ContentModule } from './content/content.module';
 import { PlaceImageModule } from './place-image/place-image.module';
+import { PlaceCategoryModule } from './place-category/place-category.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PlaceImageModule } from './place-image/place-image.module';
     PlaceModule,
     ContentModule,
     PlaceImageModule,
+    PlaceCategoryModule,
   ],
 })
 export class AppModule {}
