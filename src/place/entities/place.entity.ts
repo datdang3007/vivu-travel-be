@@ -1,4 +1,5 @@
 import { Content } from 'src/content/entities/content.entity';
+import { PlaceCategory } from 'src/place-category/entities/place-category.entity';
 import { PlaceImage } from 'src/place-image/entities/place-image.entity';
 import { Province } from 'src/province/entities/province.entity';
 import { Region } from 'src/region/entities/region.entity';
@@ -8,6 +9,8 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -34,6 +37,22 @@ export class Place {
     cascade: ['soft-remove', 'insert'],
   })
   image_stock: PlaceImage[];
+
+  @ManyToMany(() => PlaceCategory, (category) => category.place, {
+    cascade: ['soft-remove', 'insert'],
+  })
+  @JoinTable({
+    name: 'place_tourism_types',
+    joinColumn: {
+      name: 'place_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'place_category_id',
+      referencedColumnName: 'id',
+    },
+  })
+  category: PlaceCategory[];
 
   @ManyToOne(() => Region, {
     eager: true,

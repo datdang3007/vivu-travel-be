@@ -1,8 +1,10 @@
+import { Place } from 'src/place/entities/place.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,6 +16,11 @@ export class PlaceCategory {
 
   @Column()
   name: string;
+
+  @ManyToMany(() => Place, (place) => place.category, {
+    cascade: ['soft-remove', 'insert'],
+  })
+  place: Place[];
 
   @CreateDateColumn()
   created_at: Date;

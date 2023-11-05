@@ -35,6 +35,11 @@ export class ContentController {
     return this.contentService.update(+id, updatePlaceDto);
   }
 
+  @Delete('deleteByPlaceId/:id')
+  delete(@Param('id') id: string) {
+    return this.contentService.delete(+id);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.contentService.softRemove(+id);

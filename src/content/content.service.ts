@@ -33,6 +33,10 @@ export class ContentService {
     await this.contentRepository.update({ id }, payload);
   }
 
+  async delete(id: number) {
+    await this.contentRepository.delete({ place: { id } });
+  }
+
   async softRemove(id: number) {
     await this.contentRepository.softRemove({ id });
   }

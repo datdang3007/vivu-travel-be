@@ -10,10 +10,14 @@ import {
 import { PlaceService } from './place.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
+import { ContentService } from 'src/content/content.service';
 
 @Controller('place')
 export class PlaceController {
-  constructor(private readonly placeService: PlaceService) {}
+  constructor(
+    private readonly placeService: PlaceService,
+    private readonly contentService: ContentService,
+  ) {}
 
   @Post()
   create(@Body() createPlaceDto: CreatePlaceDto) {
@@ -37,6 +41,6 @@ export class PlaceController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.placeService.remove(+id);
+    return this.placeService.softRemove(+id);
   }
 }

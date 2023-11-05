@@ -34,6 +34,8 @@ export class PlaceService {
       }),
     );
 
+    this.contentService.delete(place.id);
+
     contents.forEach((val) => {
       const { type, content } = val;
       this.contentService.create({
@@ -48,14 +50,14 @@ export class PlaceService {
 
   findAll() {
     return this.placeRepository.find({
-      relations: ['contents', 'image_stock'],
+      relations: ['image_stock'],
     });
   }
 
   findOne(fields: EntityCondition<Place>): Promise<Place> {
     return this.placeRepository.findOneOrFail({
       where: fields,
-      relations: ['contents'],
+      relations: ['contents', 'category'],
     });
   }
 
@@ -63,7 +65,7 @@ export class PlaceService {
     await this.placeRepository.update({ id }, payload);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} place`;
+  async softRemove(id: number) {
+    await this.placeRepository.softRemove({ id });
   }
 }

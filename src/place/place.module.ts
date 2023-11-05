@@ -10,6 +10,7 @@ import { Territory } from 'src/territory/entities/territory.entity';
 import { Region } from 'src/region/entities/region.entity';
 import { ProvinceService } from 'src/province/province.service';
 import { TerritoryService } from 'src/territory/territory.service';
+import { PlaceCategory } from 'src/place-category/entities/place-category.entity';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { TerritoryService } from 'src/territory/territory.service';
     TypeOrmModule.forFeature([Territory]),
     TypeOrmModule.forFeature([Province]),
     TypeOrmModule.forFeature([Place]),
+    TypeOrmModule.forFeature([PlaceCategory]),
     TypeOrmModule.forFeature([Content]),
   ],
   controllers: [PlaceController],
