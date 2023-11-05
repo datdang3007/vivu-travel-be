@@ -20,13 +20,16 @@ export class TerritoryService {
   }
 
   findAll() {
-    return this.territoryRepository.find();
+    return this.territoryRepository.find({
+      relations: ['provinceList', 'placeList'],
+    });
   }
 
   findOne(fields: EntityCondition<Territory>): Promise<Territory> {
     console.log(fields);
     return this.territoryRepository.findOneOrFail({
       where: fields,
+      relations: ['provinceList', 'placeList'],
     });
   }
 

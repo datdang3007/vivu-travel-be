@@ -20,12 +20,15 @@ export class RegionService {
   }
 
   findAll() {
-    return this.regionRepository.find();
+    return this.regionRepository.find({
+      relations: ['territoryList', 'provinceList', 'placeList'],
+    });
   }
 
   findOne(fields: EntityCondition<Region>): Promise<Region> {
     return this.regionRepository.findOneOrFail({
       where: fields,
+      relations: ['territoryList', 'provinceList', 'placeList'],
     });
   }
 

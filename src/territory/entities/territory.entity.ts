@@ -1,3 +1,5 @@
+import { Place } from 'src/place/entities/place.entity';
+import { Province } from 'src/province/entities/province.entity';
 import { Region } from 'src/region/entities/region.entity';
 import {
   Column,
@@ -5,6 +7,7 @@ import {
   DeleteDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -30,6 +33,16 @@ export class Territory {
     eager: true,
   })
   region: Region;
+
+  @OneToMany(() => Province, (province) => province.territory, {
+    cascade: ['soft-remove', 'insert'],
+  })
+  provinceList: Province[];
+
+  @OneToMany(() => Place, (place) => place.territory, {
+    cascade: ['soft-remove', 'insert'],
+  })
+  placeList: Place[];
 
   @CreateDateColumn()
   created_at: Date;

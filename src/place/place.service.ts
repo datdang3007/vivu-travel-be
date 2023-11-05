@@ -61,6 +61,12 @@ export class PlaceService {
     });
   }
 
+  findOneInTerritory(territoryID: number): Promise<Place> {
+    return this.placeRepository.findOneOrFail({
+      where: { territory: { id: territoryID } },
+    });
+  }
+
   async update(id: Place['id'], payload: DeepPartial<Place>) {
     await this.placeRepository.update({ id }, payload);
   }
