@@ -32,12 +32,15 @@ export class ProvinceService {
   }
 
   findAll() {
-    return this.provinceRepository.find();
+    return this.provinceRepository.find({
+      relations: ['placeList'],
+    });
   }
 
   findOne(fields: EntityCondition<Province>): Promise<Province> {
     return this.provinceRepository.findOneOrFail({
       where: fields,
+      relations: ['placeList'],
     });
   }
 
