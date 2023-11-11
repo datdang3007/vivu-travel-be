@@ -10,6 +10,7 @@ import {
 import { RegionService } from './region.service';
 import { CreateRegionDto } from './dto/create-region.dto';
 import { UpdateRegionDto } from './dto/update-region.dto';
+import { Public } from 'src/auth/auth.guard';
 
 @Controller('region')
 export class RegionController {
@@ -20,11 +21,13 @@ export class RegionController {
     return this.regionService.create(createRegionDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.regionService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.regionService.findOne({ id });

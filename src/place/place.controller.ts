@@ -11,6 +11,7 @@ import { PlaceService } from './place.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
 import { ContentService } from 'src/content/content.service';
+import { Public } from 'src/auth/auth.guard';
 
 @Controller('place')
 export class PlaceController {
@@ -24,11 +25,13 @@ export class PlaceController {
     return this.placeService.create(createPlaceDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.placeService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.placeService.findOne({ id });

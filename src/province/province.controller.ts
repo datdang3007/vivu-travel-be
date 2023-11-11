@@ -10,6 +10,7 @@ import {
 import { CreateProvinceDto } from './dto/create-province.dto';
 import { UpdateProvinceDto } from './dto/update-province.dto';
 import { ProvinceService } from './province.service';
+import { Public } from 'src/auth/auth.guard';
 
 @Controller('province')
 export class ProvinceController {
@@ -20,11 +21,13 @@ export class ProvinceController {
     return this.provinceService.create(createProvinceDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.provinceService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.provinceService.findOne({ id });

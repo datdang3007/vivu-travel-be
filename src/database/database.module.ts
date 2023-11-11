@@ -7,10 +7,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: async () => {
+      useFactory: async (configService: ConfigService) => {
         return {
           type: 'postgres',
-          url: process.env.DATABASE_URL,
+          url: configService.get('DATABASE_URL'),
           entities: ['dist/**/*.entity{.ts,.js}'],
           migrations: ['src/migrations/*.ts', 'dist/migrations/*{.ts,.js}'],
           cli: {

@@ -10,6 +10,7 @@ import {
 import { CreatePlaceImageDto } from './dto/create-place-image.dto';
 import { UpdatePlaceImageDto } from './dto/update-place-image.dto';
 import { PlaceImageService } from './place-image.service';
+import { Public } from 'src/auth/auth.guard';
 
 @Controller('place-image')
 export class PlaceImageController {
@@ -26,11 +27,13 @@ export class PlaceImageController {
     return this.placeImageService.createList(data.data);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.placeImageService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.placeImageService.findOne({ id });

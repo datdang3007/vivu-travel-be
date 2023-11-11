@@ -10,6 +10,7 @@ import {
 import { TerritoryService } from './territory.service';
 import { CreateTerritoryDto } from './dto/create-territory.dto';
 import { UpdateTerritoryDto } from './dto/update-territory.dto';
+import { Public } from 'src/auth/auth.guard';
 
 @Controller('territory')
 export class TerritoryController {
@@ -20,11 +21,13 @@ export class TerritoryController {
     return this.territoryService.create(createTerritoryDto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.territoryService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.territoryService.findOne({ id });

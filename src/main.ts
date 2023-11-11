@@ -11,6 +11,7 @@ async function bootstrap() {
     .setTitle('Vivu Travel API Documentation')
     .setDescription('Vivu Travel API have builded since 2023 by DatDT')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
