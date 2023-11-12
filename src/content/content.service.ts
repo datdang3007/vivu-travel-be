@@ -20,12 +20,15 @@ export class ContentService {
   }
 
   findAll() {
-    return this.contentRepository.find();
+    return this.contentRepository.find({
+      order: { id: 'DESC' },
+    });
   }
 
   findOne(fields: EntityCondition<Content>): Promise<Content> {
     return this.contentRepository.findOneOrFail({
       where: fields,
+      order: { id: 'DESC' },
     });
   }
 

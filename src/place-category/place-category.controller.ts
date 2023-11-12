@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CreatePlaceCategoryDto } from './dto/create-place-category.dto';
 import { PlaceCategoryService } from './place-category.service';
-import { Public } from 'src/auth/auth.guard';
+import { AuthGuard, Public } from 'src/auth/auth.guard';
 
 @Controller('place-category')
 export class PlaceCategoryController {
@@ -19,6 +19,7 @@ export class PlaceCategoryController {
     return this.placeCategoryService.findOne({ id });
   }
 
+  @UseGuards(AuthGuard)
   @Post('/bulkUpdate')
   bulkUpdate(@Body() bulk: { data: CreatePlaceCategoryDto[] }) {
     return this.placeCategoryService.bulkUpdate(bulk);

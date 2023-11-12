@@ -11,9 +11,11 @@ import { Region } from 'src/region/entities/region.entity';
 import { ProvinceService } from 'src/province/province.service';
 import { TerritoryService } from 'src/territory/territory.service';
 import { PlaceCategory } from 'src/place-category/entities/place-category.entity';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   imports: [
+    AuthModule,
     TypeOrmModule.forFeature([Region]),
     TypeOrmModule.forFeature([Territory]),
     TypeOrmModule.forFeature([Province]),

@@ -17,12 +17,11 @@ import { AuthService } from './auth.service';
         return {
           global: true,
           secret: configService.get('JWT_SECRET_KEY'),
-          // signOptions: { expiresIn: '12h' },
         };
       },
     }),
   ],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule],
   controllers: [AuthController],
   providers: [
     AuthService,

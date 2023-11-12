@@ -57,6 +57,12 @@ export class PlaceService {
   findOne(fields: EntityCondition<Place>): Promise<Place> {
     return this.placeRepository.findOneOrFail({
       where: fields,
+    });
+  }
+
+  findOneWithRelations(fields: EntityCondition<Place>): Promise<Place> {
+    return this.placeRepository.findOneOrFail({
+      where: fields,
       relations: ['contents', 'category'],
     });
   }
