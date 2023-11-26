@@ -1,10 +1,12 @@
 import * as bcrypt from 'bcrypt';
+import { Role } from 'src/role/entities/role.entity';
 import {
   BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -28,6 +30,11 @@ export class User {
 
   @Column({ type: 'text', nullable: true })
   avatar: string;
+
+  @ManyToOne(() => Role, {
+    eager: true,
+  })
+  role: Role;
 
   @Column({ type: 'varchar', nullable: false, unique: true })
   email: string;

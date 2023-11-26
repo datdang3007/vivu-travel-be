@@ -11,6 +11,11 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async findUserByEmail(email: string) {
+    const user = await this.userService.findUserByEmail(email);
+    return user;
+  }
+
   async login(data: LoginAuthDto) {
     const { email, password } = data;
 
@@ -31,8 +36,23 @@ export class AuthService {
     }
 
     // Login successfully:
-    const { id, username, avatar, description, like } = user;
-    const payload = { id, email, username, avatar, description, like };
+    const {
+      id,
+      username,
+      avatar,
+      description,
+      like,
+      role: { id: roleId },
+    } = user;
+    const payload = {
+      id,
+      email,
+      username,
+      avatar,
+      description,
+      like,
+      role: roleId,
+    };
     return {
       access_token: await this.jwtService.signAsync(payload),
     };

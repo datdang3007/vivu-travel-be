@@ -11,6 +11,9 @@ import { ProvinceModule } from './province/province.module';
 import { RegionModule } from './region/region.module';
 import { TerritoryModule } from './territory/territory.module';
 import { UserModule } from './user/user.module';
+import { RoleModule } from './role/role.module';
+import { PostModule } from './post/post.module';
+import { PostDetailModule } from './post-detail/post-detail.module';
 
 @Module({
   imports: [
@@ -27,6 +30,9 @@ import { UserModule } from './user/user.module';
     PlaceCategoryModule,
     UserModule,
     AuthModule,
+    RoleModule,
+    PostModule,
+    PostDetailModule,
   ],
 })
 export class AppModule {}

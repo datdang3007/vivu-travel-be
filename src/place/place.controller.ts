@@ -11,15 +11,11 @@ import {
 import { PlaceService } from './place.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { UpdatePlaceDto } from './dto/update-place.dto';
-import { ContentService } from 'src/content/content.service';
 import { AuthGuard, Public } from 'src/auth/auth.guard';
 
 @Controller('place')
 export class PlaceController {
-  constructor(
-    private readonly placeService: PlaceService,
-    private readonly contentService: ContentService,
-  ) {}
+  constructor(private readonly placeService: PlaceService) {}
 
   @UseGuards(AuthGuard)
   @Post()
@@ -36,7 +32,7 @@ export class PlaceController {
   @Public()
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.placeService.findOneWithRelations({ id });
+    return this.placeService.findOne({ id });
   }
 
   @Public()
