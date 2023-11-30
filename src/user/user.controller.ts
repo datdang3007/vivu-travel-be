@@ -14,6 +14,12 @@ export class UserController {
   }
 
   @Public()
+  @Get('/find/byRole/:roles')
+  async findByRoles(@Param('roles') roles: string) {
+    return this.userService.findByRoles(roles);
+  }
+
+  @Public()
   @Post('/signup')
   async signUp(@Body() userData: CreateUserDto) {
     return this.userService.signUp(userData);

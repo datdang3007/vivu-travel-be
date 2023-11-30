@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { Role } from 'src/constants/role.enum';
+import { In } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -16,6 +17,17 @@ export class UserService {
     return this.userRepository.findOneOrFail({
       where: {
         email,
+      },
+    });
+  }
+
+  async findByRoles(roles: string): Promise<User[] | undefined> {
+    const listRole = roles.split(',');
+    return this.userRepository.find({
+      where: {
+        role: {
+          id: In(listRole),
+        },
       },
     });
   }
