@@ -43,7 +43,7 @@ export class PlaceImageController {
 
   @Public()
   @Get('/findByPlaceID/:id')
-  findByPlaceID(@Param('placeID') id: number) {
+  findByPlaceID(@Param('id') id: number) {
     return this.placeImageService.findByPlaceID({ place: { id } });
   }
 
