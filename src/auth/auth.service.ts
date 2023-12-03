@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from 'src/user/user.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
+import { EditProfileAuthDto } from './dto/edit-profile-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -41,6 +42,7 @@ export class AuthService {
       username,
       avatar,
       description,
+      country,
       like,
       role: { id: roleId },
     } = user;
@@ -50,6 +52,46 @@ export class AuthService {
       username,
       avatar,
       description,
+      country,
+      like,
+      role: roleId,
+    };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
+  }
+
+  async editProfile(userId, data: EditProfileAuthDto) {
+    const { email } = data;
+
+    const user = await this.userService.findUserByEmail(email);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    if (Number(user.id) !== Number(userId)) {
+      throw new UnauthorizedException();
+    }
+
+    const newUser = await this.userService.editProfile(Number(userId), data);
+
+    const {
+      id,
+      username,
+      avatar,
+      description,
+      country,
+      like,
+      role: { id: roleId },
+    } = newUser;
+
+    const payload = {
+      id,
+      email,
+      username,
+      avatar,
+      description,
+      country,
       like,
       role: roleId,
     };

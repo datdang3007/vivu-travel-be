@@ -25,8 +25,8 @@ export class User {
   @Column({ type: 'decimal', default: 0 })
   like: number;
 
-  // @Column({ type: 'decimal', default: 0 })
-  // country: string;
+  @Column({ type: 'text', default: 'VN' })
+  country: string;
 
   @Column({ type: 'text', nullable: true })
   avatar: string;

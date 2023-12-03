@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 import { Role } from 'src/constants/role.enum';
-import { In } from 'typeorm';
+import { DeepPartial, In } from 'typeorm';
 
 @Injectable()
 export class UserService {
@@ -59,5 +59,16 @@ export class UserService {
     return this.userRepository.save(
       this.userRepository.create({ ...createUserDto, role: { id: Role.User } }),
     );
+  }
+
+  async editProfile(
+    id: User['id'],
+    payload: DeepPartial<User>,
+  ): Promise<User | undefined> {
+    const { email } = payload;
+    await this.userRepository.update({ id }, payload);
+    return this.userRepository.findOneOrFail({
+      where: { email },
+    });
   }
 }
