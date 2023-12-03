@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { PlaceService } from './place.service';
 import { CreatePlaceDto } from './dto/create-place.dto';
@@ -39,6 +40,18 @@ export class PlaceController {
   @Get('/relations/:id')
   findOneWithRelations(@Param('id') id: number) {
     return this.placeService.findOneWithRelations({ id });
+  }
+
+  @Public()
+  @Get('/findByList/place/:ids')
+  findByListId(@Param('ids') ids: string) {
+    return this.placeService.findByListId(ids);
+  }
+
+  @Public()
+  @Get('/filter/place/recommend')
+  async filterPlaces(@Query() query): Promise<any> {
+    return await this.placeService.filterPlacesByCriteria(query);
   }
 
   @UseGuards(AuthGuard)

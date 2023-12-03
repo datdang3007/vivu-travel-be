@@ -7,11 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { AuthGuard, Public } from 'src/auth/auth.guard';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('post')
 export class PostController {
@@ -31,8 +33,19 @@ export class PostController {
 
   @Public()
   @Get('/findByStatus/:status')
-  findByStatus(@Param('status') status: number) {
+  findByStatus(@Param('status') status: string) {
     return this.postService.findByStatus(status);
+  }
+
+  @Public()
+  @Get('/findByUser')
+  @ApiQuery({ name: 'user_id', required: true })
+  @ApiQuery({ name: 'status', required: true })
+  findByUser(
+    @Query('user_id') user_id: number,
+    @Query('status') status: string,
+  ) {
+    return this.postService.findByUser(user_id, status);
   }
 
   @Public()

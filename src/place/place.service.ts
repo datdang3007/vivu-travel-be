@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ContentService } from 'src/content/content.service';
 import { EntityCondition } from 'src/utils/types/entity-condition.type';
-import { DeepPartial } from 'typeorm';
+import { DeepPartial, In } from 'typeorm';
 import { CreatePlaceDto } from './dto/create-place.dto';
 import { Place } from './entities/place.entity';
 import { PlaceRepository } from './place.repository';
@@ -64,7 +64,55 @@ export class PlaceService {
     return this.placeRepository.findOneOrFail({
       where: fields,
       relations: ['contents', 'category'],
+      order: { contents: { id: 'ASC' } },
     });
+  }
+
+  findByListId(ids: string): Promise<Place[]> {
+    const listId = ids.split(',');
+    return this.placeRepository.find({
+      where: { id: In(listId) },
+      relations: ['contents', 'category', 'image_stock'],
+      order: { contents: { id: 'ASC' }, image_stock: { id: 'ASC' } },
+    });
+  }
+
+  async filterPlacesByCriteria(criteria: any): Promise<Place[]> {
+    const queryBuilder = this.placeRepository.createQueryBuilder('place');
+
+    if (criteria.placeId) {
+      queryBuilder.andWhere('place.id != :placeId', {
+        placeId: criteria.placeId,
+      });
+    }
+
+    if (criteria.regionId) {
+      queryBuilder.andWhere('place.region.id = :regionId', {
+        regionId: criteria.regionId,
+      });
+    }
+
+    if (criteria.territoryId) {
+      queryBuilder.andWhere('place.territory.id = :territoryId', {
+        territoryId: criteria.territoryId,
+      });
+    }
+
+    if (criteria.provinceId) {
+      queryBuilder.andWhere('place.province.id = :provinceId', {
+        provinceId: criteria.provinceId,
+      });
+    }
+
+    if (criteria.categoryIds) {
+      queryBuilder.innerJoin('place.category', 'category');
+      queryBuilder.andWhere('category.id IN (:...categoryIds)', {
+        categoryIds: criteria.categoryIds,
+      });
+    }
+
+    const filteredPlaces = await queryBuilder.getMany();
+    return filteredPlaces;
   }
 
   findOneInTerritory(territoryID: number): Promise<Place> {

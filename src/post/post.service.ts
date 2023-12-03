@@ -8,6 +8,7 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
 import { PostRepository } from './post.repository';
+import { In } from 'typeorm';
 
 @Injectable()
 export class PostService {
@@ -20,6 +21,10 @@ export class PostService {
 
   async create(createPostDto: CreatePostDto): Promise<Post> {
     const { contents, creator, ...dataCreate } = createPostDto;
+
+    if (!creator) {
+      return null;
+    }
 
     const user = await this.authService.findUserByEmail(creator);
 
@@ -51,9 +56,18 @@ export class PostService {
     });
   }
 
-  findByStatus(status: number) {
+  findByStatus(status: string) {
+    const listStatus = status.split(',');
     return this.postRepository.find({
-      where: { status: status },
+      where: { status: In(listStatus) },
+      relations: ['contents'],
+    });
+  }
+
+  findByUser(user_id: number, status: string) {
+    const listStatus = status.split(',');
+    return this.postRepository.find({
+      where: { creator: { id: user_id }, status: In(listStatus) },
       relations: ['contents'],
     });
   }
