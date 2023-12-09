@@ -12,8 +12,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard, Public } from './auth.guard';
 import { AuthService } from './auth.service';
-import { LoginAuthDto } from './dto/login-auth.dto';
 import { EditProfileAuthDto } from './dto/edit-profile-auth.dto';
+import { LoginAuthDto } from './dto/login-auth.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,6 +24,13 @@ export class AuthController {
   @Post('login')
   login(@Body() data: LoginAuthDto) {
     return this.authService.login(data);
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch('/update/role')
+  updateRole(@Body() data: { user_email: string; role_id: number }) {
+    const { user_email, role_id } = data;
+    return this.authService.updateRole(user_email, role_id);
   }
 
   @UseGuards(AuthGuard)

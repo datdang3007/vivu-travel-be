@@ -14,6 +14,7 @@ import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 import { PostModule } from './post/post.module';
 import { PostDetailModule } from './post-detail/post-detail.module';
+import { PlaceCommentModule } from './place-comment/place-comment.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { PostDetailModule } from './post-detail/post-detail.module';
     RoleModule,
     PostModule,
     PostDetailModule,
+    PlaceCommentModule,
   ],
 })
 export class AppModule {}

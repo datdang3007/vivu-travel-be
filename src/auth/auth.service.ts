@@ -61,6 +61,21 @@ export class AuthService {
     };
   }
 
+  async updateRole(user_email: string, role_id: number) {
+    const user = await this.userService.findUserByEmail(user_email);
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { role: userRole, ...currentData } = user;
+    return await this.userService.editProfile(Number(user.id), {
+      ...currentData,
+      role: {
+        id: role_id,
+      },
+    });
+  }
+
   async editProfile(userId, data: EditProfileAuthDto) {
     const { email } = data;
 
