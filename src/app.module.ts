@@ -15,6 +15,7 @@ import { RoleModule } from './role/role.module';
 import { PostModule } from './post/post.module';
 import { PostDetailModule } from './post-detail/post-detail.module';
 import { PlaceCommentModule } from './place-comment/place-comment.module';
+import { FilterModule } from './filter/filter.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { PlaceCommentModule } from './place-comment/place-comment.module';
       envFilePath: '.env',
     }),
     DatabaseModule,
+    FilterModule,
     RegionModule,
     TerritoryModule,
     ProvinceModule,
