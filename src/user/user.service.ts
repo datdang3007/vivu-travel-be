@@ -32,6 +32,14 @@ export class UserService {
     });
   }
 
+  async findById(id: number): Promise<User | undefined> {
+    return this.userRepository.findOneOrFail({
+      where: {
+        id,
+      },
+    });
+  }
+
   async findUserByEmail(email: string): Promise<User | undefined> {
     return this.userRepository.findOneOrFail({
       where: {

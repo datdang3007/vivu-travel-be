@@ -20,6 +20,12 @@ export class UserController {
   }
 
   @Public()
+  @Get('/find/byId/:id')
+  async findById(@Param('id') id: number) {
+    return this.userService.findById(id);
+  }
+
+  @Public()
   @Post('/signup')
   async signUp(@Body() userData: CreateUserDto) {
     return this.userService.signUp(userData);

@@ -6,6 +6,8 @@ import { RegionService } from 'src/region/region.service';
 import { TerritoryService } from 'src/territory/territory.service';
 import { PostService } from './../post/post.service';
 
+const limitRecords = 20;
+
 @Injectable()
 export class FilterService {
   constructor(
@@ -68,6 +70,6 @@ export class FilterService {
     this.loopPushGeography(result, resultPlace, FILTER_CODE.PLACE);
     this.loopPushPost(result, resultPost, FILTER_CODE.POST);
 
-    return result;
+    return result.splice(0, limitRecords);
   }
 }
