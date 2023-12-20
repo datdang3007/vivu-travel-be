@@ -34,11 +34,11 @@ export class PlaceService {
       }),
     );
 
-    this.contentService.delete(place.id);
+    await this.contentService.delete(place.id);
 
-    contents.forEach((val) => {
+    contents.forEach(async (val) => {
       const { type, content } = val;
-      this.contentService.create({
+      await this.contentService.create({
         type,
         content,
         place,
@@ -83,24 +83,6 @@ export class PlaceService {
     if (criteria.placeId) {
       queryBuilder.andWhere('place.id != :placeId', {
         placeId: criteria.placeId,
-      });
-    }
-
-    if (criteria.regionId) {
-      queryBuilder.andWhere('place.region.id = :regionId', {
-        regionId: criteria.regionId,
-      });
-    }
-
-    if (criteria.territoryId) {
-      queryBuilder.andWhere('place.territory.id = :territoryId', {
-        territoryId: criteria.territoryId,
-      });
-    }
-
-    if (criteria.provinceId) {
-      queryBuilder.andWhere('place.province.id = :provinceId', {
-        provinceId: criteria.provinceId,
       });
     }
 

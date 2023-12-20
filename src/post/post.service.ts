@@ -36,11 +36,11 @@ export class PostService {
       }),
     );
 
-    this.postDetailService.delete(post.id);
+    await this.postDetailService.delete(post.id);
 
-    contents.forEach((val) => {
+    contents.forEach(async (val) => {
       const { type, content } = val;
-      this.postDetailService.create({
+      await this.postDetailService.create({
         type,
         content,
         post,
@@ -53,6 +53,7 @@ export class PostService {
   findAll() {
     return this.postRepository.find({
       relations: ['contents'],
+      order: { contents: { id: 'ASC' } },
     });
   }
 
@@ -61,6 +62,7 @@ export class PostService {
     return this.postRepository.find({
       where: { status: In(listStatus) },
       relations: ['contents'],
+      order: { contents: { id: 'ASC' } },
     });
   }
 
@@ -69,6 +71,7 @@ export class PostService {
     return this.postRepository.find({
       where: { creator: { id: user_id }, status: In(listStatus) },
       relations: ['contents'],
+      order: { contents: { id: 'ASC' } },
     });
   }
 
@@ -82,6 +85,7 @@ export class PostService {
     return this.postRepository.findOneOrFail({
       where: fields,
       relations: ['creator', 'contents'],
+      order: { contents: { id: 'ASC' } },
     });
   }
 

@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { ContentModule } from './content/content.module';
-// import { DatabaseModule } from './database/database.module';
-import { DatabaseModuleDev } from './database/database_dev.module';
+import { DatabaseModule } from './database/database.module';
+// import { DatabaseModuleDev } from './database/database_dev.module';
 import { PlaceCategoryModule } from './place-category/place-category.module';
 import { PlaceImageModule } from './place-image/place-image.module';
 import { PlaceModule } from './place/place.module';
@@ -22,7 +22,7 @@ import { FilterModule } from './filter/filter.module';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    DatabaseModuleDev,
+    DatabaseModule,
     FilterModule,
     RegionModule,
     TerritoryModule,
